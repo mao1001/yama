@@ -8,11 +8,13 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Nick on 5/1/2016.
@@ -93,7 +95,16 @@ public class ComposeMessageActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        returnHome();
+        EditText number = (EditText)findViewById(R.id.field_select_contact);
+        EditText message = (EditText)findViewById(R.id.field_compose_message);
+        if (!number.getText().toString().equals("") || !message.getText().toString().equals("")) {
+            Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(number.getText().toString(), null, message.getText().toString(), null, null);
+            returnHome();
+        } else {
+            Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void returnHome() {
