@@ -1,16 +1,17 @@
 package edu.uw.mao1001.yama;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    //-----------------------//
+    //   O V E R R I D E S   //
+    //-----------------------//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        IntentFilter messageFilter = new IntentFilter();
+        messageFilter.addAction(ComposeMessageActivity.ACTION_SMS_STATUS);
+
+        this.registerReceiver(new MyReceiver(), messageFilter);
     }
 
     private void launchComposeMessageFragment() {
