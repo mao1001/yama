@@ -25,6 +25,13 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+
+        <receiver android:name=".MyReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="edu.uw.mao1001.yama.ACTION_SMS_STATUS" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

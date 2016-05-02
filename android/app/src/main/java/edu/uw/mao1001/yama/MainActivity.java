@@ -1,9 +1,9 @@
 package edu.uw.mao1001.yama;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.provider.Telephony;
 import android.support.design.widget.FloatingActionButton;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        IntentFilter messageFilter = new IntentFilter();
-        messageFilter.addAction(ComposeMessageActivity.ACTION_SMS_STATUS);
-        messageFilter.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        this.registerReceiver(new MyReceiver(), messageFilter);
+        Fragment fragment = MessageListFragment.newInstance();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.container, fragment, "MessageListFragment");
+        ft.commit();
     }
 
     private void launchComposeMessageFragment() {
