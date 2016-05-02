@@ -23,7 +23,11 @@
         <activity
             android:name=".ComposeMessageActivity"
             android:parentActivityName=".MainActivity">
+        </activity>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
 
         <receiver android:name=".MyReceiver">
