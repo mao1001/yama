@@ -2,4 +2,9 @@
     <string name="app_name">Yama</string>+
 
     <string name="title_compose_message">Compose Message</string>
+
+
+    <string name="hint_select_contact">Recipient</string>
+    <string name="hint_compose_message">Type message</string>
+    <string name="button_send">Send</string>
 </resources>

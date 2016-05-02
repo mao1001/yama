@@ -3,8 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="Hello World!"
+    <EditText
+        android:id="@+id/field_select_contact"
+        android:hint="@string/hint_select_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/field_compose_message"
+        android:hint="@string/hint_compose_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button_send_message"
+        android:text="@string/button_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
