@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Telephony;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ public class MyReceiver extends BroadcastReceiver {
             } else {
                 Toast.makeText(context, "Error sending message", Toast.LENGTH_SHORT).show();
             }
+        } else if (intent.getAction() == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
+            Toast.makeText(context, "Message received!", Toast.LENGTH_SHORT).show();
         }
     }
 }
