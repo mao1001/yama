@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Yama</string>
+    <string name="app_name">Yama</string>+
+
+    <string name="title_compose_message">Compose Message</string>
 </resources>
