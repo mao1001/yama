@@ -2,9 +2,12 @@ package edu.uw.mao1001.yama;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+
+import java.util.prefs.Preferences;
 
 /**
  * Created by Nick on 5/2/2016.
@@ -22,9 +25,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key == KEY_PREF_PRESET_MESSAGE) {
-            EditTextPreference presetMessage = (EditTextPreference)findPreference(key);
-            presetMessage.setSummary(presetMessage.getText());
+        if (key.equals(KEY_PREF_PRESET_MESSAGE)) {
+            EditTextPreference pref = (EditTextPreference)findPreference(key);
+            pref.getEditor().putString(KEY_PREF_PRESET_MESSAGE, pref.getText());
+        } else if (key.equals(KEY_PREF_AUTO_REPLY)) {
+            CheckBoxPreference pref = (CheckBoxPreference) findPreference(key);
+            pref.getEditor().putBoolean(KEY_PREF_AUTO_REPLY, pref.isChecked());
         }
     }
 }

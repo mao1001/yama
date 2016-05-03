@@ -26,9 +26,7 @@ public class SMSSendService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.v("SMSSendService", "recieved intent: " + intent.getAction());
         if (intent.getAction().equals(ACTION_SMS_STATUS)) {
-            Log.v("SMSSendService", "Attempting to send message");
             Intent broadcastIntent = new Intent(ACTION_SMS_STATUS);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, SMS_SENT_CODE, broadcastIntent, 0);
             Bundle extra = intent.getExtras();

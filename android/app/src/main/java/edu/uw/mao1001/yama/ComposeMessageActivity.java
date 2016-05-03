@@ -44,7 +44,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
             sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    validate();
+                    sendMessage();
                 }
             });
         }
@@ -108,7 +108,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
     /**
      *  Sends a text message out. If there is invalid input, this will notify the user
      */
-    private void validate() {
+    private void sendMessage() {
         EditText numberField = (EditText) findViewById(R.id.field_select_contact);
         EditText messageField = (EditText) findViewById(R.id.field_compose_message);
         String number = numberField.getText().toString();
