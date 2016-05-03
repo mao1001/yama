@@ -1,6 +1,7 @@
 package edu.uw.mao1001.yama;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,6 +21,10 @@ public class MyReceiver extends BroadcastReceiver {
 
     public static final String TAG = "RECEIVER";
 
+    //-----------------------//
+    //   O V E R R I D E S   //
+    //-----------------------//
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v(TAG, "Received something" + intent.toString());
@@ -29,36 +35,57 @@ public class MyReceiver extends BroadcastReceiver {
                 Toast.makeText(context, "Error sending message", Toast.LENGTH_SHORT).show();
             }
         } else if (intent.getAction().equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             Toast.makeText(context, "Received message!", Toast.LENGTH_LONG).show();
 
-            if (prefs.getBoolean(SettingsFragment.KEY_PREF_AUTO_REPLY, false)) {
-                Bundle extras = intent.getExtras();
-                SmsMessage[] msgs = null;
-                String msg_from;
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String number = "";
+            String body = "";
+            Bundle extras = intent.getExtras();
+
+            try{
+                Object[] pdus = (Object[]) extras.get("pdus");
+                SmsMessage[] msgs = new SmsMessage[pdus.length];
+                msgs[0] = SmsMessage.createFromPdu((byte[])pdus[0]);
+                number = msgs[0].getOriginatingAddress();
+                body = msgs[0].getMessageBody();
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_message_white_24dp)
+                        .setContentTitle(number)
+                        .setContentText(body);
+
+
+                NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager.notify(0, mBuilder.build());
+
+
+            } catch(Exception e){
+                Log.d("Exception caught",e.getMessage());
+            }
+
+
+            if (prefs.getBoolean(SettingsFragment.KEY_PREF_AUTO_REPLY, false) && !number.equals("")) {
+
                 if (extras != null){
+                    Log.v(TAG, "Sending auto reply");
                     //---retrieve the SMS message received---
-                    try{
-                        Object[] pdus = (Object[]) extras.get("pdus");
-                        msgs = new SmsMessage[pdus.length];
-                        msgs[0] = SmsMessage.createFromPdu((byte[])pdus[0]);
-                        String number = msgs[0].getOriginatingAddress();
-                        String message = prefs.getString(SettingsFragment.KEY_PREF_PRESET_MESSAGE, "");
+                    String message = prefs.getString(SettingsFragment.KEY_PREF_PRESET_MESSAGE, "");
+                    autoReply(context, number, message);
 
-                        autoReply(context, number, message);
-
-                    } catch(Exception e){
-                            Log.d("Exception caught",e.getMessage());
-                    }
                 } else {
                     Toast.makeText(context, "Cannot auto-reply", Toast.LENGTH_LONG).show();
 
                 }
             }
+
         }
     }
 
-    public void autoReply(Context context, String number, String message) {
+    //-----------------------------------//
+    //   P R I V A T E   M E T H O D S   //
+    //-----------------------------------//
+
+    private void autoReply(Context context, String number, String message) {
         Intent smsIntent = new Intent(context, SMSSendService.class);
         smsIntent.setAction(SMSSendService.ACTION_SMS_STATUS);
         Bundle extras = new Bundle();
