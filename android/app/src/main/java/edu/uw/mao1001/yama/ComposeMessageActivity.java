@@ -1,11 +1,13 @@
 package edu.uw.mao1001.yama;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
@@ -24,9 +26,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
     public static final String TAG = "ComposeMessageActivity";
 
     public static final int PICK_CONTACT = 1;
-    private static final int SMS_SENT_CODE = 2;
 
-    public static final String ACTION_SMS_STATUS = "edu.uw.mao1001.yama.ACTION_SMS_STATUS";
     //-----------------------//
     //   O V E R R I D E S   //
     //-----------------------//
@@ -44,7 +44,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
             sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sendMessage();
+                    validate();
                 }
             });
         }
@@ -106,19 +106,23 @@ public class ComposeMessageActivity extends AppCompatActivity {
     }
 
     /**
-     * Sends a text message out. If there is invalid input, this will notify the user.
+     *  Sends a text message out. If there is invalid input, this will notify the user
      */
-    private void sendMessage() {
-        EditText number = (EditText)findViewById(R.id.field_select_contact);
-        EditText message = (EditText)findViewById(R.id.field_compose_message);
-        if (!number.getText().toString().equals("") || !message.getText().toString().equals("")) {
+    private void validate() {
+        EditText numberField = (EditText) findViewById(R.id.field_select_contact);
+        EditText messageField = (EditText) findViewById(R.id.field_compose_message);
+        String number = numberField.getText().toString();
+        String message = messageField.getText().toString();
+
+        if (!number.equals("") || !message.equals("")) {
+            Intent intent = new Intent(this, SMSSendService.class);
+            intent.setAction(SMSSendService.ACTION_SMS_STATUS);
+            Bundle extra = new Bundle();
+            extra.putString("number", number);
+            extra.putString("message", message);
+            intent.putExtras(extra);
+            this.startService(intent);
             Toast.makeText(this, "Sending Message", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(ACTION_SMS_STATUS);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, SMS_SENT_CODE, intent, 0);
-
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(number.getText().toString(), null, message.getText().toString(), pendingIntent, null);
             returnHome();
         } else {
             Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();

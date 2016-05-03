@@ -12,4 +12,13 @@
     <string name="hint_compose_message">Type message</string>
     <string name="button_send">Send</string>
     <string name="button_select">Select Contact</string>
+
+    <string name="menu_settings_title">Settings</string>
+
+    <string name="settings_auto_reply_summary">Reply to all incoming messages with a preset message</string>
+    <string name="settings_auto_reply_title">Automatic replies</string>
+
+    <string name="settings_preset_title">Preset message</string>
+    <string name="settings_preset_summary">Define a preset message to reply with</string>
+    <string name="settings_preset_default">I\'m currently not available right now</string>
 </resources>

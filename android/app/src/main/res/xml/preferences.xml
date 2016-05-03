@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
-        android:text="@string/placeholder" />
+    <PreferenceCategory
+        android:title="Auto-reply"
+        android:key="pref_key_storage_settings">
+        <CheckBoxPreference
+            android:key="pref_key_auto_reply"
+            android:title="@string/settings_auto_reply_title"
+            android:summary="@string/settings_auto_reply_summary"
+            android:defaultValue="false" />
+        <EditTextPreference
+            android:dependency="pref_key_auto_reply"
+            android:key="pref_key_preset_message"
+            android:title="@string/settings_preset_title"
+            android:summary="@string/settings_preset_summary"
+            android:defaultValue="@string/settings_preset_default" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

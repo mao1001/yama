@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,14 +20,12 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v(TAG, "Received something" + intent.toString());
-        if (intent.getAction() == ComposeMessageActivity.ACTION_SMS_STATUS) {
+        if (intent.getAction().equals(SMSSendService.ACTION_SMS_STATUS)) {
             if (getResultCode() == Activity.RESULT_OK) {
                 Toast.makeText(context, "Message successfully sent", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "Error sending message", Toast.LENGTH_SHORT).show();
             }
-        } else if (intent.getAction() == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
-            Toast.makeText(context, "Message received!", Toast.LENGTH_SHORT).show();
         }
     }
 }
