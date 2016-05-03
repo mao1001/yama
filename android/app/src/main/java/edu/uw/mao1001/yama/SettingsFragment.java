@@ -17,6 +17,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String KEY_PREF_AUTO_REPLY = "pref_key_auto_reply";
     public static final String KEY_PREF_PRESET_MESSAGE = "pref_key_preset_message";
 
+    //-----------------------//
+    //   O V E R R I D E S   //
+    //-----------------------//
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

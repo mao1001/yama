@@ -3,28 +3,29 @@
 The below questions should be answered regarding your submission!
 
 ##### Did you work with a partner? If so, who? #####
-> Answer goes here!
+Nope
 
 
 ##### What UI widgets/patterns did you include in your app? Why are they appropriate for your app's interaction? #####
-> Answer goes here!
+The floating action button. I thought it was nice because you always want to be able to create messages conveniently.
 
 
 ##### What model device(s) did you test your application on? What SDK did you target? #####
-> Answer goes here!
+OnePlus One. Custom ROM running on 5.1.1. Targetted: 21.
 
 
 ##### Did you receive help from any other sources (classmates, etc)? If so, please list who (be specific!). #####
-> Answer goes here!
+Nope
 
 
 ##### Approximately how many hours did it take you to complete this assignment? #####
-> Answer goes here!
+~15
 
 
 ##### On a scale of 1 (too easy) to 10 (too challenging), how difficult was this assignment? #####
-> Answer goes here!
+6
 
 
 ##### Did you encounter any problems in this assignment we should warn students about in the future? How can we make the assignment better? #####
-> Answer goes here!
+It was a lot of fun to do actually. I thought it was a well scoped assignment and I thought it was actually
+completely possible during it by yourself instead of in pairs.

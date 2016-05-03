@@ -13,12 +13,17 @@ import android.widget.Toast;
 
 /**
  * Created by Nick on 5/2/2016.
+ * Service intent to handle sending messages.
  */
 public class SMSSendService extends IntentService {
 
     private static final int SMS_SENT_CODE = 2;
 
     public static final String ACTION_SMS_STATUS = "edu.uw.mao1001.yama.ACTION_SMS_STATUS";
+
+    //-----------------------//
+    //   O V E R R I D E S   //
+    //-----------------------//
 
     public SMSSendService() {
         super(SMSSendService.class.getName());

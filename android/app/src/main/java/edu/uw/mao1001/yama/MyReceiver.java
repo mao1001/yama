@@ -49,6 +49,7 @@ public class MyReceiver extends BroadcastReceiver {
                 number = msgs[0].getOriginatingAddress();
                 body = msgs[0].getMessageBody();
 
+                //Sends a notification with the number and the body of the message to the system.
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_message_white_24dp)
                         .setContentTitle(number)
@@ -63,15 +64,12 @@ public class MyReceiver extends BroadcastReceiver {
                 Log.d("Exception caught",e.getMessage());
             }
 
-
+            //Checks to make sure the user has auto-reply on and if a number was successfully extracted.
             if (prefs.getBoolean(SettingsFragment.KEY_PREF_AUTO_REPLY, false) && !number.equals("")) {
-
                 if (extras != null){
-                    Log.v(TAG, "Sending auto reply");
-                    //---retrieve the SMS message received---
+                    //Sends an auto-reply
                     String message = prefs.getString(SettingsFragment.KEY_PREF_PRESET_MESSAGE, "");
                     autoReply(context, number, message);
-
                 } else {
                     Toast.makeText(context, "Cannot auto-reply", Toast.LENGTH_LONG).show();
 
@@ -85,6 +83,12 @@ public class MyReceiver extends BroadcastReceiver {
     //   P R I V A T E   M E T H O D S   //
     //-----------------------------------//
 
+    /**
+     * Sends an auto-reply back to the passed in number.
+     * @param context : context
+     * @param number : Receiving number
+     * @param message : Message to be sent out.
+     */
     private void autoReply(Context context, String number, String message) {
         Intent smsIntent = new Intent(context, SMSSendService.class);
         smsIntent.setAction(SMSSendService.ACTION_SMS_STATUS);

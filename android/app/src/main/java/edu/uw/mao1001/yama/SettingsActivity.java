@@ -1,9 +1,6 @@
 package edu.uw.mao1001.yama;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -18,7 +15,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         setTitle("Settings");
-
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.settings_container, new SettingsFragment())

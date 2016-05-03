@@ -54,12 +54,21 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //-----------------------------------//
+    //   P R I V A T E   M E T H O D S   //
+    //-----------------------------------//
+
+    /**
+     * Launches the settings activity
+     */
     private void launchSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
-
+    /**
+     * Launches the compose message activity
+     */
     private void launchComposeMessageFragment() {
         Intent intent = new Intent(this, ComposeMessageActivity.class);
         startActivity(intent);

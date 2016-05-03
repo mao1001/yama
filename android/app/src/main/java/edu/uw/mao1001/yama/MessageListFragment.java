@@ -101,6 +101,10 @@ public class MessageListFragment extends Fragment implements LoaderManager.Loade
     //   P R I V A T E   M E T H O D S   //
     //-----------------------------------//
 
+    /**
+     * Starts an adapter to hook up to the loader manager.
+     * @param rootView
+     */
     private void initializeAdapter(View rootView) {
         adapter = new SimpleCursorAdapter(
                 getActivity(),
@@ -111,38 +115,9 @@ public class MessageListFragment extends Fragment implements LoaderManager.Loade
                 0
         );
 
-//        //ViewBinder to determine what to data to display where.
-//        adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-//            @Override
-//            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-//                if (columnIndex == cursor.getColumnIndex(Inbox.ADDRESS)) {
-//
-//                    TextView titleView = (TextView)view.findViewById(R.id.label_contact_name);
-//                    titleView.setText(cursor.getString(cursor.getColumnIndex(Inbox.ADDRESS)));
-//
-//                    TextView messageView = (TextView)view.findViewById(R.id.label_message_body);
-//                    messageView.setText(cursor.getString(cursor.getColumnIndex(Inbox.BODY)));
-//
-////                    TextView receivedDate = (TextView)view.findViewById(R.id.label_received_date);
-////                    receivedDate.setText(cursor.getString(cursor.getColumnIndex(Inbox.DATE_SENT)));
-//                }
-//
-//                return true;
-//            }
-//        });
-
         AdapterView listView = (AdapterView)rootView.findViewById(R.id.message_list);
         listView.setAdapter(adapter);
 
         getLoaderManager().initLoader(0, null, this);
-    }
-
-    private String getContactNameById(String id) {
-        Cursor contactCursor = getActivity().getContentResolver().query(
-                ContactsContract.Contacts.CONTENT_URI, null,
-                ContactsContract.Contacts._ID + "='" + id + "'", null, null);
-
-        contactCursor.moveToFirst();
-        return contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
     }
 }
